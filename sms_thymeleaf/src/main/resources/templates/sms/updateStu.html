@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <link rel="icon" th:href="@{/images/logo.ico}">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/bootstrap.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/dashboard.css}">
+    <script th:src="@{/bootstrap/js/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/bootstrap/js/bootstrap.js}"></script>
+
+
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Student Management Studio V1.0</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/stu/findAll">Student Management Studio V1.0</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">学生管理</a></li>
+                    <li><a href="#">成绩管理</a></li>
+                    <li><a href="#">用户字典</a></li>
+                    <li><a href="#">账户安全</a></li>
+                </ul>
+                <form class="navbar-form navbar-right">
+                    <input type="text" class="form-control" placeholder="Search...">
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="page-header">修改学生信息</h1>
+        <div class="col-lg-8">
+            <form th:action="@{/stu/updateStu}"  method="post"  class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="inputId" class="col-sm-2 control-label">学生学号</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="inputId" name="id" class="form-control"
+                               required th:value="${stu.id}" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputName" class="col-sm-2 control-label">学生姓名</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="inputName" name="name"  class="form-control"
+                               required autofocus th:value="${stu.name}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputName" class="col-sm-2 control-label">性别</label>
+                    <div class="col-sm-10">
+                        <label class="radio-inline"><input type="radio" name="sex" id="sex1"
+                             th:checked="${'男'.equals(stu.sex)}"  value="男">男</label>
+                        <label class="radio-inline"><input type="radio" name="sex" id="sex2"
+                             th:checked="${'女'.equals(stu.sex)}" value="女" >女</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputBirth" class="col-sm-2 control-label">出生日期</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="inputBirth" name="birth" class="form-control"
+                               th:value="${#dates.format(stu.birth,'yyyy/MM/dd')}" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputMajor" class="col-sm-2 control-label">专业</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="inputMajor" name="major"  class="form-control"
+                               th:value="${stu.major}" required >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputNote" class="col-sm-2 control-label">备注</label>
+                    <div class="col-sm-10">
+                        <textarea type="text" id="inputNote" name="note" class="form-control"
+                                  th:text="${stu.note}" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="upPhoto">上传照片</label>
+                    <div class="col-sm-10">
+                        <input  type="file" name="photo" id="upPhoto">
+                    </div>
+                </div>
+
+                <button class="btn btn-lg btn-primary btn-block" type="submit">提    交</button>
+            </form>
+        </div>
+
+        <div class="col-lg-4">
+            <img th:src="@{/images/new_demo.png}" class="img-responsive" alt="学生照片"/>
+        </div>
+    </div>
+</body>
+</html>

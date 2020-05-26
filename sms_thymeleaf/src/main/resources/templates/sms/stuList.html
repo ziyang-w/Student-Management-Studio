@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <link rel="icon" th:href="@{/images/logo.ico}">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/bootstrap.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/dashboard.css}">
+    <script th:src="@{/bootstrap/js/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/bootstrap/js/bootstrap.js}"></script>
+
+
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Student Management Studio V1.0</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/stu/findAll">Student Management Studio V1.0</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a th:href="@{/stu/findAll}">学生管理</a></li>
+                    <li><a th:href="@{/toFind}">成绩管理</a></li>
+                    <li><a href="#">用户字典</a></li>
+                    <li><a href="#">账户安全</a></li>
+                </ul>
+                <form class="navbar-form navbar-right">
+                    <input type="text" class="form-control" placeholder="Search...">
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <h1 class="page-header">学生基本信息
+            <a th:href="@{/toAddStu}" title="点击添加学生信息"><span style="font-size: smaller" class="glyphicon glyphicon-plus pull-right"></span></a>
+        </h1>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>学号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>出生日期</th>
+                <th>专业</th>
+                <th>备注</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="stu:${stus}">
+                <td>
+                    <span th:text="${stu.id}"></span>
+                </td>
+                <td>
+                    <span th:text="${stu.name}"></span>
+                </td>
+                <td>
+                    <span th:text="${stu.sex}"></span>
+                </td>
+                <td>
+                    <!--这里是对日期格式的出生日期作做格式化处理-->
+                    <span th:text="${#dates.format(stu.birth,'yyyy-MM-dd')}"></span>
+<!--                    <span th:text="${stu.birth}"></span>-->
+                </td>
+                <td>
+                    <span th:text="${stu.major}"></span>
+                </td>
+                <td style="max-width: 400px">
+                    <span th:text="${stu.note}"></span>
+                </td>
+                <td>
+                    <a th:href="@{/stu/findStuById(id=${stu.id})}" title="修改学生信息"><span class="glyphicon glyphicon-pencil"></span></a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <a th:href="@{/stu/deleteStu(id=${stu.id})}" id="minus" title="删除学生"><span class="glyphicon glyphicon-minus" onclick="return window.confirm('您想删除吗?')"></span></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

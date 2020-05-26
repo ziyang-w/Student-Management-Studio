@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wzy.dao.StuDAO">
+    <!--查询所有学生名单-->
+    <select id="findAll" resultType="Stu">
+        select id,name,sex,birth,note,major from t_stu
+    </select>
+
+    <!--添加学生信息到db-->
+    <insert id="addStu" parameterType="Stu">
+        insert into t_stu values(#{id},#{name},#{sex},#{birth},#{note},#{major})
+    </insert>
+
+    <!--根据学生Id查询对应学生-->
+    <select id="findStuById" parameterType="String" resultType="Stu">
+        select id,name,sex,birth,note,major from t_stu where id=#{id}
+    </select>
+
+    <!--更新学生信息到db-->
+    <update id="updateStu" parameterType="Stu">
+        update t_stu set name=#{name},sex=#{sex},birth=#{birth},note=#{note},major=#{major}
+        where id=#{id}
+    </update>
+
+    <!--删除学生信息到db-->
+    <delete id="deleteStu" parameterType="String">
+        delete from t_stu where id=#{id}
+    </delete>
+</mapper>
